@@ -36,6 +36,18 @@ class EditConnector extends Component {
     this.props.updateConnector({ [updatedConnector.id]: updatedConnector })
   }
 
+  LocalizedNameChanged(event) {
+    const updatedLocalizedNames = {
+      ...this.props.connector.localizedNames,
+      [event.target.id]: event.target.value,
+    }
+    const updatedConnector = {
+      ...this.props.connector,
+      localizedNames: updatedLocalizedNames,
+    };
+    this.props.updateConnector({ [updatedConnector.id]: updatedConnector })
+  }
+
   connectorPropertyChanged(event) {
     const updatedConnector = {
       ...this.props.connector,
@@ -141,7 +153,7 @@ class EditConnector extends Component {
       this.createTextEdit(
         locale,
         "Mandrill",
-        this.connectorPropertyChanged,
+        this.LocalizedNameChanged.bind(this),
         locale,
       )
     )
