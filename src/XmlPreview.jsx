@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Highlight from 'react-highlight'
-import * as ConvertToXml from './ConvertToXml.js'
-import { Col, Row, DropdownButton, FormGroup, MenuItem, ControlLabel } from 'react-bootstrap'
-import * as consts from './Constants.js'
+import * as convertToXml from './convertToXml.js'
+import { Col, Row, DropdownButton, MenuItem } from 'react-bootstrap'
+import * as consts from './constants.js'
 
 class XmlPreview extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class XmlPreview extends Component {
 
     let xml = ""
     if (this.state.selected === "current" ) {
-      xml = ConvertToXml.OutputConnector(this.props.connector);
+      xml = convertToXml.outputConnector(this.props.connector);
     } else {
       xml = this.props.xml[this.state.selected];
     }

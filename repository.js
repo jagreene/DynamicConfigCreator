@@ -3,8 +3,12 @@ var path = require('path');
 
 module.exports.getConnectors = function() {
   var fullPath = path.join(__dirname, 'data', 'connectors.json');
-  var fileContents = fs.readFileSync(fullPath, 'utf8');
-  return JSON.parse(fileContents);
+  try {
+    var fileContents = fs.readFileSync(fullPath, 'utf8');
+    return JSON.parse(fileContents);
+  } catch (err){
+    return null;
+  }
 }
 
 module.exports.saveConnectors = function(data) {

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Col, Row, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap'
-import * as Constants from './Constants.js'
 
 class ConnectorList extends Component {
   render() {

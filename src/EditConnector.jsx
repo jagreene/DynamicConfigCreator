@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import {FormGroup, ControlLabel, FormControl, Button, Radio, Form, Col, Row, Checkbox, Glyphicon} from 'react-bootstrap'
-import * as consts from './Constants.js'
-import ConvertToXml from './ConvertToXml.js'
+import * as consts from './constants.js'
 
 class EditConnector extends Component {
   versionCheckChanged(event) {
     const updatedVersions = {
-      ...this.props.constructor.versionSupport,
+      ...this.props.connector.versionSupport,
       [event.target.id]: event.target.checked,
     };
     const updatedConnector = {
@@ -18,12 +17,21 @@ class EditConnector extends Component {
 
   skuCheckChanged(event) {
     const updatedSkus = {
-      ...this.props.constructor.supportedSKUs,
+      ...this.props.connector.supportedSKUs,
       [event.target.id]: event.target.checked,
     };
     const updatedConnector = {
       ...this.props.connector,
       supportedSKUs: updatedSkus,
+    };
+    this.props.updateConnector({ [updatedConnector.id]: updatedConnector })
+  }
+
+  releaseStatusChanged(event) {
+    const updatedReleaseStatus = event.target.id;
+    const updatedConnector = {
+      ...this.props.connector,
+      releaseStatus: updatedReleaseStatus,
     };
     this.props.updateConnector({ [updatedConnector.id]: updatedConnector })
   }
@@ -102,7 +110,6 @@ class EditConnector extends Component {
 
   render() {
     const connector = this.props.connector;
-    console.log(connector);
     const versionChecks = consts.versions.map(version =>
       this.createCheckBox(
         this.versionCheckChanged.bind(this),
@@ -123,10 +130,10 @@ class EditConnector extends Component {
 
     const releaseStatusRadios = consts.releaseStatuses.map(status =>
       this.createRadio(
-        this.connectorPropertyChanged.bind(this),
+        this.releaseStatusChanged.bind(this),
         status,
         status,
-        connector.releaseStatus[status]
+        connector.releaseStatus === status
       )
     )
 

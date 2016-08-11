@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import logo from '../tableau_logo.png'
-import { Navbar, Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 
 //----------------------Navbar---------------------//
 // Component for the top navbar, purely presentational

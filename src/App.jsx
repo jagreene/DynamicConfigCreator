@@ -4,15 +4,15 @@ import ConnectorList from './ConnectorList.jsx'
 import EditConnector from './EditConnector.jsx'
 import XmlPreview from './XmlPreview.jsx'
 import { Row } from 'react-bootstrap'
-import * as ConvertToXml from './ConvertToXml.js'
-import * as consts from './Constants.js'
+import * as convertToXml from './convertToXml.js'
+import * as consts from './constants.js'
 
 class App extends Component {
   constructor(props) {
     super(props);
-    let currentConnector = consts.GetDefaultEmptyConnector();
+    let currentConnector = consts.getDefaultEmptyConnector();
     let connectors = { [currentConnector.id]: currentConnector };
-    const xml = ConvertToXml.OutputConfigs(Object.values(connectors));
+    const xml = convertToXml.outputConfigs(Object.values(connectors));
     this.state = {
       connectors,
       currentConnector,
@@ -37,7 +37,7 @@ class App extends Component {
       if (connectors) {
         console.log(connectors);
         let currentConnector = Object.values(connectors)[0];
-        const xml = ConvertToXml.OutputConfigs(Object.values(connectors));
+        const xml = convertToXml.outputConfigs(Object.values(connectors));
         this.setState({ connectors, currentConnector, xml });
       }
     })
@@ -60,9 +60,9 @@ class App extends Component {
   }
 
   addConnector() {
-    const currentConnector = consts.GetDefaultEmptyConnector();
+    const currentConnector = consts.getDefaultEmptyConnector();
     const connectors = { ...this.state.connectors, [currentConnector.id]: currentConnector };
-    const xml = ConvertToXml.OutputConfigs(Object.values(connectors));
+    const xml = convertToXml.outputConfigs(Object.values(connectors));
     this.setState({
       connectors,
       currentConnector,
@@ -77,7 +77,7 @@ class App extends Component {
 
   updateConnector(connector) {
     let connectors = {...this.state.connectors, ...connector };
-    let xml = ConvertToXml.OutputConfigs(Object.values(connectors));
+    let xml = convertToXml.outputConfigs(Object.values(connectors));
     let currentConnector = connectors[this.state.currentConnector.id];
     this.setState({ connectors, currentConnector, xml } );
   }

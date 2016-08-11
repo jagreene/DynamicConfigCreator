@@ -1,4 +1,4 @@
-export function GetDefaultEmptyConnector() {
+export function getDefaultEmptyConnector() {
   return {
     id: guid(),
     name: "New Connector",

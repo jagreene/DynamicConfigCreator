@@ -1,19 +1,19 @@
 import XmlBuilder from 'xmlbuilder';
-import * as consts from './Constants.js';
+import * as consts from './constants.js';
 
-export function OutputConnector(json, builderIn) {
-  console.log(json.createdDate);
+export function outputConnector(json, builderIn) {
   var builder = builderIn || XmlBuilder.create('connector');
   builder.ele('name', json.name);
   builder.ele('class-name', json.className);
   builder.ele('status', json.releaseStatus);
+  builder.ele('skus', json.supportedSKUs);
   builder.ele('type', 'wdc');
 
   var nameElement = builder.ele('localized-strings')
     .ele('string', {'id':'name', 'default':json.name});
-  for(var locale in json.localizedNames) {
+  Object.keys(json.localizedNames).forEach(locale => {
     nameElement.ele('localized-string', {'locale':locale}, json.localizedNames[locale]);
-  }
+  })
 
   // TODO - created/modified
   builder.ele('created-date', json.createdDate);
@@ -33,7 +33,7 @@ export function OutputConnector(json, builderIn) {
   }
 }
 
-export function OutputConfigs(connectors) {
+export function outputConfigs(connectors) {
   return consts.versions.reduce((xml, version) => {
     let builder = XmlBuilder.create('dynamic-config');
     builder.ele('target-version', version);
@@ -43,7 +43,7 @@ export function OutputConfigs(connectors) {
     connectors.forEach( connector => {
       if (connector.versionSupport[version]) {
         let connectorEle = connectorsEle.ele("connector");
-        OutputConnector(connector, connectorEle);
+        outputConnector(connector, connectorEle);
       }
     });
 
