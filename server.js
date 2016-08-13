@@ -11,15 +11,18 @@ var startApiServer = function() {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(cors());
+  app.disable('etag');
 
   app.get("/connectors", function(req, res) {
     var connectors = repository.getConnectors();
+    res.set('Cache-Control', 'no-cache');
     res.json(connectors);
   });
 
   app.post("/connectors", function(req, res) {
+    console.log("Request to save connectors received");
     repository.saveConnectors(req.body);
-    res.status(200);
+    res.sendStatus(200);
   })
 
   app.get('*', function(req, res) {

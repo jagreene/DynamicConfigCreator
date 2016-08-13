@@ -14,7 +14,7 @@ module.exports.getConnectors = function() {
 module.exports.saveConnectors = function(data) {
   fs.writeFileSync(path.join(__dirname, 'data', 'connectors.json'), JSON.stringify(data.json));
 
-  let xml = data.xml;
+  var xml = data.xml;
 
   for (version in xml) {
     fs.writeFileSync(path.join(__dirname, 'data', `${version}.xml`), xml[version]);

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<dynamic-config>
+  <target-version>10.1</target-version>
+  <modifiedDate>2016-08-13T00:02:40.412Z</modifiedDate>
+  <etag>b2dc7f24-fcd2-959a-6c96-040cb619ad3d</etag>
+  <connectors>
+    <connector>
+      <name>Marketo</name>
+      <class-name>marketo-marketo</class-name>
+      <status>beta</status>
+      <skus public="true" standard="true" pro="true"></skus>
+      <type>wdc</type>
+      <localized-strings>
+        <string id="name" default="Marketo">
+          <localized-string locale="zh_CN">Marketo</localized-string>
+          <localized-string locale="de_DE">Marketo</localized-string>
+          <localized-string locale="en_US">Marketo</localized-string>
+          <localized-string locale="es_ES">Marketo</localized-string>
+          <localized-string locale="fr_FR">Marketo</localized-string>
+          <localized-string locale="ja_JP">Marketo</localized-string>
+          <localized-string locale="ko_KR">Marketo</localized-string>
+          <localized-string locale="pt_BR">Marketo</localized-string>
+        </string>
+      </localized-strings>
+      <created-date>2016-08-12T23:33:47.126Z</created-date>
+      <modified-date>2016-08-12T23:33:47.126Z</modified-date>
+      <wdc-info>
+        <url>https://beta-connectors.tableau.com/marketo/marketo/1/marketo.html</url>
+        <width>550</width>
+        <height>550</height>
+      </wdc-info>
+    </connector>
+    <connector>
+      <name>Quickbooks Online</name>
+      <class-name>intuit-quickbooks</class-name>
+      <status>prod</status>
+      <skus public="false" standard="true" pro="true"></skus>
+      <type>wdc</type>
+      <localized-strings>
+        <string id="name" default="Quickbooks Online">
+          <localized-string locale="zh_CN">Quickbooks Online</localized-string>
+          <localized-string locale="de_DE">Quickbooks Online</localized-string>
+          <localized-string locale="en_US">Quickbooks Online</localized-string>
+          <localized-string locale="es_ES">Quickbooks Online</localized-string>
+          <localized-string locale="fr_FR">Quickbooks Online</localized-string>
+          <localized-string locale="ja_JP">Quickbooks Online</localized-string>
+          <localized-string locale="ko_KR">Quickbooks Online</localized-string>
+          <localized-string locale="pt_BR">Quickbooks Online</localized-string>
+        </string>
+      </localized-strings>
+      <created-date>2016-08-12T23:35:53.716Z</created-date>
+      <modified-date>2016-08-12T23:35:53.716Z</modified-date>
+      <wdc-info>
+        <url>https://connectors.tableau.com/intuit/quickbooks/2/quickbooks.html</url>
+        <width>650</width>
+        <height>615</height>
+      </wdc-info>
+    </connector>
+  </connectors>
+</dynamic-config>
