@@ -73,7 +73,7 @@ class App extends Component {
         toastr.error(err, "Save Error");
       });
     } else {
-      toastr.error("can't save when any connectors are missing a name", "Save Error");
+      toastr.error("Can't save files when any connectors are missing a name", "Save Error");
     }
   }
 
