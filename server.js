@@ -21,8 +21,11 @@ var startApiServer = function() {
 
   app.post("/connectors", function(req, res) {
     console.log("Request to save connectors received");
-    repository.saveConnectors(req.body);
-    res.sendStatus(200);
+    let status = 500;
+    if (repository.saveConnectors(req.body)) {
+      status = 200;
+    }
+    res.sendStatus(status);
   })
 
   app.get('*', function(req, res) {

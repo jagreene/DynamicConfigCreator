@@ -56,7 +56,7 @@ class EditConnector extends Component {
     this.props.updateConnector({ [updatedConnector.id]: updatedConnector })
   }
 
-  createTextEdit(label, placeholder, changeHandler, propertyName, editType) {
+  createTextEdit(label, placeholder, changeHandler, propertyName, editType, disabled=false) {
 
     changeHandler = changeHandler || this.connectorPropertyChanged;
     propertyName = propertyName || label;
@@ -73,6 +73,7 @@ class EditConnector extends Component {
             placeholder={placeholder}
             value={this.props.connector[propertyName]}
             onChange={changeHandler.bind(this)}
+            disabled={disabled}
           />
         </Col>
       </FormGroup>
@@ -177,7 +178,7 @@ class EditConnector extends Component {
               </Button>
             </Col>
           </Row>
-          {this.createTextEdit("Name", "Mandrill", null, "name")}
+          {this.createTextEdit("Name", "Mandrill", null, "name", null, this.props.lockedName)}
           {this.createTextEdit("Class Name", "mailchimp-mandrill", null, "className")}
           {this.createTextEdit("Url", "https://connectors.tableau.com", null, "url")}
           {this.createTextEdit("Dialog Width", "600", null, "width", "number")}
@@ -199,6 +200,7 @@ class EditConnector extends Component {
 
 EditConnector.propTypes = {
   connector: PropTypes.object.isRequired,
+  lockedName: PropTypes.bool.isRequired,
   updateConnector: PropTypes.func.isRequired,
   updateXml: PropTypes.func.isRequired
 };

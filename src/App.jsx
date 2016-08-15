@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import toastr from 'toastr'
 import Titlebar from "./Titlebar.jsx"
 import ConnectorList from './ConnectorList.jsx'
 import EditConnector from './EditConnector.jsx'
@@ -10,13 +11,15 @@ import * as consts from './constants.js'
 class App extends Component {
   constructor(props) {
     super(props);
-    let currentConnector = consts.getDefaultEmptyConnector();
-    let connectors = { [currentConnector.id]: currentConnector };
+    const currentConnector = consts.getDefaultEmptyConnector();
+    const connectors = { [currentConnector.id]: currentConnector };
     const xml = convertToXml.outputConfigs(Object.values(connectors));
+    const lockedNames = [];
     this.state = {
       connectors,
       currentConnector,
       xml,
+      lockedNames,
     };
 
     this.fetchConnectors = this.fetchConnectors.bind(this);
@@ -34,11 +37,11 @@ class App extends Component {
       return response.json();
     })
     .then(connectors => {
-      if (connectors) {
-        console.log(connectors);
-        let currentConnector = Object.values(connectors)[0];
+      if (Object.keys(connectors).length > 0) {
+        const currentConnector = Object.values(connectors)[0];
         const xml = convertToXml.outputConfigs(Object.values(connectors));
-        this.setState({ connectors, currentConnector, xml });
+        const lockedNames = Object.keys(connectors)
+        this.setState({ connectors, currentConnector, xml, lockedNames });
       }
     })
     .catch(err => {
@@ -47,16 +50,31 @@ class App extends Component {
   }
 
   updateXml() {
-    fetch(
-      'http://localhost:3001/connectors', {
+    const connectors = Object.values(this.state.connectors);
+    const valid = connectors.reduce((valid, connector) => !!connector.name);
+    if (valid) {
+      fetch( 'http://localhost:3001/connectors', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
           xml: this.state.xml,
           json: this.state.connectors,
         })
-      }
-    );
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        const lockedNames = Object.keys(this.state.connectors);
+        this.setState({ lockedNames });
+        toastr.success("Save Successful");
+      })
+      .catch(err => {
+        toastr.error(err, "Save Error");
+      });
+    } else {
+      toastr.error("can't save when any connectors are missing a name", "Save Error");
+    }
   }
 
   addConnector() {
@@ -83,6 +101,7 @@ class App extends Component {
   }
 
   render() {
+    const lockedName = this.state.lockedNames.includes(this.state.currentConnector.id);
     return (
       <Row className="App" style={{paddingBottom: 15}}>
         <Titlebar />
@@ -95,6 +114,7 @@ class App extends Component {
           />
           <EditConnector
             connector={this.state.currentConnector}
+            lockedName={lockedName}
             updateConnector={this.updateConnector}
             updateXml={this.updateXml}
           />
